@@ -46,46 +46,75 @@
         /* Floating hearts background */
         .heart {
             position: absolute;
-            background: rgba(255, 182, 193, 0.6);
+            background: rgba(255, 182, 193, 0.7); /* একটু গাঢ় রং */
             transform: rotate(-45deg);
-            animation: float 6s infinite ease-in-out;
+            animation: float linear infinite; /* লিনিয়ার অ্যানিমেশন */
         }
         .heart::before, .heart::after {
             content: "";
             position: absolute;
             width: 100%;
             height: 100%;
-            background: rgba(255, 182, 193, 0.6);
+            background: rgba(255, 182, 193, 0.7);
             border-radius: 50%;
         }
         .heart::before { top: -50%; left: 0; }
         .heart::after { top: 0; left: 50%; }
 
         @keyframes float {
-            0% { transform: translateY(100vh) rotate(-45deg) scale(0.6); opacity: 0; }
-            50% { opacity: 0.8; }
-            100% { transform: translateY(-10vh) rotate(-45deg) scale(1.2); opacity: 0; }
+            0% { transform: translateY(100vh) rotate(-45deg) scale(var(--scale)); opacity: 0; }
+            10% { opacity: 1; } /* দ্রুত দৃশ্যমান */
+            90% { opacity: 1; } /* দীর্ঘক্ষণ দৃশ্যমান */
+            100% { transform: translateY(-10vh) rotate(-45deg) scale(var(--scale)); opacity: 0; } /* উপরে অদৃশ্য */
         }
     </style>
 </head>
 <body>
 
-    <!-- Floating Hearts Animation -->
-    <div class="heart" style="width: 20px; height: 20px; left: 10%; animation-delay: 0s;"></div>
-    <div class="heart" style="width: 35px; height: 35px; left: 30%; animation-delay: 2s;"></div>
-    <div class="heart" style="width: 15px; height: 15px; left: 60%; animation-delay: 4s;"></div>
-    <div class="heart" style="width: 30px; height: 30px; left: 80%; animation-delay: 1s;"></div>
-    <div class="heart" style="width: 25px; height: 25px; left: 50%; animation-delay: 3s;"></div>
+    <!-- Floating Hearts Animation (অনেক বেশি সংখ্যক হার্ট) -->
+    <!-- হার্টের সংখ্যা এবং বৈশিষ্ট্যগুলো জাভাস্ক্রিপ্ট দিয়ে তৈরি করা হয়েছে -->
+
+    <script>
+        function createHearts() {
+            const heartCount = 50; // এখানে সংখ্যা কমানো বা বাড়ানো যাবে (বর্তমানে ৫০টি)
+            const body = document.body;
+
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+
+                // র‍্যান্ডম সাইজ (১০ থেকে ৩০ পিক্সেল)
+                const size = Math.random() * 20 + 10;
+                heart.style.width = `${size}px`;
+                heart.style.height = `${size}px`;
+                
+                // র‍্যান্ডম অবস্থান (স্ক্রিনের যেকোনো জায়গা থেকে)
+                heart.style.left = `${Math.random() * 100}vw`;
+                
+                // র‍্যান্ডম গতি (৫ থেকে ১০ সেকেন্ড)
+                const duration = Math.random() * 5 + 5;
+                heart.style.animationDuration = `${duration}s`;
+                
+                // র‍্যান্ডম ডিলে (শুরু করার সময়)
+                heart.style.animationDelay = `${Math.random() * 5}s`;
+
+                // র‍্যান্ডম অপাসিটি (স্বচ্ছতা)
+                heart.style.opacity = Math.random() * 0.5 + 0.2;
+                
+                // CSS ভেরিয়েবল হিসেবে সাইজ পাস করা (অ্যানিমেশনের জন্য)
+                heart.style.setProperty('--scale', Math.random() * 0.5 + 0.5);
+
+                body.appendChild(heart);
+            }
+        }
+
+        createHearts();
+    </script>
 
     <!-- Center Card -->
     <div class="card">
-        <!-- ১. কেক/জন্মদিনের ইমোজি -->
         <div class="icon">🎂</div>
-        
-        <!-- ২. শিরোনাম -->
         <h1>বুড়ো হওয়া মোবারক</h1>
-        
-        <!-- ৩. শুভেচ্ছা বার্তা -->
         <p>আরও এক বছর বুড়ি হয়ে গেলি, কিন্তু তোর বোকামি একটাও কমল না। শুভ জন্মদিন আমার পাগলী বান্ধবী!</p>
     </div>
 
