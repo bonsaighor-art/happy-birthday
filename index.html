@@ -1,21 +1,103 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday!</title>
     <style>
         body {
-            background-color: #ffdde1;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1a0b1c, #3a1c38);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            color: white;
+        }
+        .card {
+            background: rgba(20, 20, 20, 0.75);
+            padding: 40px 30px;
+            border-radius: 20px;
             text-align: center;
-            padding-top: 20vh;
-            font-family: Arial, sans-serif;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 10;
+            max-width: 350px;
+            backdrop-filter: blur(10px);
+        }
+        .icon {
+            font-size: 50px;
+            margin-bottom: 15px;
         }
         h1 {
-            color: #ff416c;
-            font-size: 3rem;
+            color: #ffb6c1;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        p {
+            color: #ddd;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        .btn {
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 65, 108, 0.4);
+            transition: 0.3s;
+        }
+        .btn:hover {
+            transform: scale(1.05);
+        }
+        /* Floating hearts background */
+        .heart {
+            position: absolute;
+            background: rgba(255, 182, 193, 0.6);
+            transform: rotate(-45deg);
+            animation: float 6s infinite ease-in-out;
+        }
+        .heart::before, .heart::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 182, 193, 0.6);
+            border-radius: 50%;
+        }
+        .heart::before { top: -50%; left: 0; }
+        .heart::after { top: 0; left: 50%; }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(-45deg) scale(0.6); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) rotate(-45deg) scale(1.2); opacity: 0; }
         }
     </style>
 </head>
 <body>
-    <h1>🎉 Happy Birthday to you! 🎂</h1>
+
+    <!-- Floating Hearts Animation -->
+    <div class="heart" style="width: 20px; height: 20px; left: 10%; animation-delay: 0s;"></div>
+    <div class="heart" style="width: 35px; height: 35px; left: 30%; animation-delay: 2s;"></div>
+    <div class="heart" style="width: 15px; height: 15px; left: 60%; animation-delay: 4s;"></div>
+    <div class="heart" style="width: 30px; height: 30px; left: 80%; animation-delay: 1s;"></div>
+    <div class="heart" style="width: 25px; height: 25px; left: 50%; animation-delay: 3s;"></div>
+
+    <!-- Center Card -->
+    <div class="card">
+        <div class="icon">🎉</div>
+        <h1>Happy Birthday!</h1>
+        <p>Another year of you making the world brighter. Your existence is a gift, and I'm so lucky to witness it.</p>
+        <button class="btn" onclick="alert('Wishing you all the happiness in the world! ❤️')">There's more...</button>
+    </div>
+
 </body>
 </html>
