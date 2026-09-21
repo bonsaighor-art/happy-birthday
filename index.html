@@ -50,81 +50,81 @@
             margin: 0;
         }
 
-        /* Floating hearts with text background */
-        .heart {
+        /* Floating elements (Hearts + Happy Birthday text) */
+        .floating-item {
             position: absolute;
-            background: rgba(255, 182, 193, 0.75);
-            transform: rotate(-45deg);
-            animation: float linear infinite;
             display: flex;
-            justify-content: center;
             align-items: center;
+            gap: 5px;
+            color: rgba(255, 182, 193, 0.8);
+            font-size: 12px;
+            font-weight: bold;
+            white-space: nowrap;
+            animation: float linear infinite;
         }
-        .heart::before, .heart::after {
+
+        .heart-icon {
+            width: 15px;
+            height: 15px;
+            background: rgba(255, 182, 193, 0.8);
+            transform: rotate(-45deg);
+            position: relative;
+            display: inline-block;
+        }
+        .heart-icon::before, .heart-icon::after {
             content: "";
             position: absolute;
             width: 100%;
             height: 100%;
-            background: rgba(255, 182, 193, 0.75);
+            background: rgba(255, 182, 193, 0.8);
             border-radius: 50%;
         }
-        .heart::before { top: -50%; left: 0; }
-        .heart::after { top: 0; left: 50%; }
-
-        /* লাভ সাইনের ভেতরে Happy Birthday লেখার স্টাইল */
-        .heart-text {
-            position: absolute;
-            transform: rotate(45deg);
-            font-size: 9px;
-            color: #4a0e17;
-            font-weight: bold;
-            white-space: nowrap;
-            z-index: 2;
-            pointer-events: none;
-        }
+        .heart-icon::before { top: -50%; left: 0; }
+        .heart-icon::after { top: 0; left: 50%; }
 
         @keyframes float {
-            0% { transform: translateY(100vh) rotate(-45deg) scale(var(--scale)); opacity: 0; }
+            0% { transform: translateY(100vh) scale(var(--scale)); opacity: 0; }
             10% { opacity: 1; }
             90% { opacity: 1; }
-            100% { transform: translateY(-10vh) rotate(-45deg) scale(var(--scale)); opacity: 0; }
+            100% { transform: translateY(-10vh) scale(var(--scale)); opacity: 0; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Floating Hearts & Happy Birthday Text Animation -->
+    <!-- Floating Hearts with "Happy Birthday" Text -->
     <script>
-        function createHearts() {
-            const heartCount = 70; // লাভ সাইনের সংখ্যা আরও বাড়িয়ে দেওয়া হলো (৭০টি)
+        function createFloatingElements() {
+            const count = 30; // আইটেমের সংখ্যা
             const body = document.body;
 
-            for (let i = 0; i < heartCount; i++) {
+            for (let i = 0; i < count; i++) {
+                const item = document.createElement('div');
+                item.classList.add('floating-item');
+
+                // লাভ আইকন এবং টেক্সট তৈরি
                 const heart = document.createElement('div');
-                heart.classList.add('heart');
+                heart.classList.add('heart-icon');
 
-                // লাভ সাইনের সাইজ একটু বড় করা হলো যাতে ভেতরে লেখা ভালোভাবে দেখা যায়
-                const size = Math.random() * 25 + 25; 
-                heart.style.width = `${size}px`;
-                heart.style.height = `${size}px`;
-                heart.style.left = `${Math.random() * 100}vw`;
+                const text = document.createElement('span');
+                text.innerText = "Happy Birthday ❤️";
+
+                item.appendChild(heart);
+                item.appendChild(text);
+
+                // র‍্যান্ডম অবস্থান ও গতি
+                item.style.left = `${Math.random() * 90}vw`;
                 
-                const duration = Math.random() * 6 + 4; // দ্রুত এবং গতিশীল করার জন্য
-                heart.style.animationDuration = `${duration}s`;
-                heart.style.animationDelay = `${Math.random() * 5}s`;
-                heart.style.opacity = Math.random() * 0.4 + 0.4;
-                heart.style.setProperty('--scale', Math.random() * 0.4 + 0.6);
+                const duration = Math.random() * 6 + 6; // ৬ থেকে ১২ সেকেন্ড সময় নেবে উপরে উঠতে
+                item.style.animationDuration = `${duration}s`;
+                item.style.animationDelay = `${Math.random() * 6}s`;
+                
+                item.style.setProperty('--scale', Math.random() * 0.4 + 0.8);
 
-                // লাভে সাইনের ভেতরে Happy Birthday টেক্সট যোগ করা
-                const textSpan = document.createElement('span');
-                textSpan.classList.add('heart-text');
-                textSpan.innerText = "Happy Birthday";
-                heart.appendChild(textSpan);
-
-                body.appendChild(heart);
+                body.appendChild(item);
             }
         }
-        createHearts();
+        createFloatingElements();
     </script>
 
     <!-- Center Card -->
